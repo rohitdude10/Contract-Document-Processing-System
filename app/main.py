@@ -14,6 +14,7 @@ from app.core.messaging import (
 )
 from app.api.routes.batches import router as batches_router
 from app.api.routes import tracking
+from app.api.routes import reviews
 
 
 logging.basicConfig(
@@ -51,6 +52,10 @@ app.include_router(health_router)
 app.include_router(batches_router)
 app.include_router(
     tracking.router,
+    prefix="/api/v1",
+)
+app.include_router(
+    reviews.router,
     prefix="/api/v1",
 )
 

@@ -25,6 +25,7 @@ from app.schemas.batch import (
 )
 from app.services.batch_service import create_batch
 from app.services.zip_service import ZipValidationError
+from app.workers.publisher import publish_batch_tasks
 
 
 logger = logging.getLogger(__name__)
@@ -142,6 +143,11 @@ async def upload_batch(
             original_filename=Path(file.filename).name,
             upload_size=upload_size,
             requested_variables=variables,
+        )
+
+        await publish_batch_tasks(
+            batch_id=batch.id,
+            documents=batch.documents,
         )
 
         return BatchUploadResponse(

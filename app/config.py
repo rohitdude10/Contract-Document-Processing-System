@@ -56,6 +56,17 @@ class Settings(BaseSettings):
 
     MOCK_EXTRACTION_FAILURE_RATE: float = 0.0
 
+    RABBITMQ_MAIN_QUEUE: str = "document.processing"
+    RABBITMQ_RETRY_QUEUE: str = "document.retry"
+    RABBITMQ_DLQ: str = "document.dlq"
+
+    RABBITMQ_EXCHANGE: str = "document.exchange"
+
+    RABBITMQ_RETRY_DELAY_MS: int = 5000
+    RABBITMQ_MAX_RETRIES: int = 3
+
+    WORKER_PREFETCH_COUNT: int = 5
+
 
 @lru_cache
 def get_settings() -> Settings:

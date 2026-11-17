@@ -2,6 +2,7 @@
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
 
 
 class Settings(BaseSettings):
@@ -33,6 +34,22 @@ class Settings(BaseSettings):
         case_sensitive=True,
         extra="ignore",
     )
+    STORAGE_DIR: Path = Path("storage")
+    UPLOAD_DIR: Path = Path("storage/uploads")
+    TEMP_DIR: Path = Path("storage/temp")
+
+    MAX_DOCUMENTS: int = 1000
+    MAX_DOCUMENT_SIZE: int = 15 * 1024 * 1024
+    MAX_ZIP_SIZE: int = 250 * 1024 * 1024
+    MAX_TOTAL_EXTRACTED_SIZE: int = 1024 * 1024 * 1024
+    MAX_COMPRESSION_RATIO: int = 100
+
+    ALLOWED_DOCUMENT_EXTENSIONS: list[str] = [
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".txt",
+    ]
 
 
 @lru_cache

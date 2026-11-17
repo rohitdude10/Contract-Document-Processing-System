@@ -103,13 +103,15 @@ class Document(Base):
     )
 
     findings: Mapped[list["Finding"]] = relationship(
-        back_populates="document",
-        cascade="all, delete-orphan",
-        passive_deletes=True,
-    )
+    back_populates="document",
+    cascade="all, delete-orphan",
+    passive_deletes=True,
+    lazy="selectin",
+)
 
     processing_attempts: Mapped[list["ProcessingAttempt"]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
         passive_deletes=True,
+        lazy="selectin",
     )

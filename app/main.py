@@ -12,6 +12,7 @@ from app.core.messaging import (
     connect_rabbitmq,
     close_rabbitmq_connection,
 )
+from app.api.routes.batches import router as batches_router
 
 
 logging.basicConfig(
@@ -46,7 +47,7 @@ app = FastAPI(
 
 
 app.include_router(health_router)
-
+app.include_router(batches_router)
 
 @app.get("/")
 async def root():

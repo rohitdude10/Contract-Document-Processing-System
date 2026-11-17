@@ -13,7 +13,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from sqlalchemy.dialects.postgresql import JSONB
 from app.models.base import Base
 
 
@@ -89,7 +89,22 @@ class Batch(Base):
     )
 
     documents: Mapped[list["Document"]] = relationship(
-        back_populates="batch",
-        cascade="all, delete-orphan",
-        passive_deletes=True,
+    back_populates="batch",
+    cascade="all, delete-orphan",
+    passive_deletes=True,
+    lazy="selectin",
+   )
+
+    requested_variables: Mapped[list[str]] = mapped_column(
+    JSONB,
+        nullable=False,
+        default=list,
+        server_default="[]",
+    )
+
+    upload_size: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+        server_default=text("0"),
     )

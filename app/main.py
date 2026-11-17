@@ -13,6 +13,7 @@ from app.core.messaging import (
     close_rabbitmq_connection,
 )
 from app.api.routes.batches import router as batches_router
+from app.api.routes import tracking
 
 
 logging.basicConfig(
@@ -48,6 +49,10 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(batches_router)
+app.include_router(
+    tracking.router,
+    prefix="/api/v1",
+)
 
 @app.get("/")
 async def root():
@@ -55,3 +60,4 @@ async def root():
         "message": "Contract Processing API is running",
         "environment": settings.APP_ENV,
     }
+

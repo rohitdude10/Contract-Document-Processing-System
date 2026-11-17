@@ -51,6 +51,11 @@ class Settings(BaseSettings):
         ".txt",
     ]
 
+    MOCK_EXTRACTION_MIN_LATENCY_SECONDS: float = 1.0
+    MOCK_EXTRACTION_MAX_LATENCY_SECONDS: float = 3.0
+
+    MOCK_EXTRACTION_FAILURE_RATE: float = 0.0
+
 
 @lru_cache
 def get_settings() -> Settings:
